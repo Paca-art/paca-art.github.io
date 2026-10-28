@@ -154,47 +154,37 @@
         #mobile-menu.menu-open { opacity: 1; visibility: visible; }
         body.menu-open { overflow: hidden; }
 
-        .www-card { position: relative; overflow: hidden; }
-        .www-card .card-img-wrap img { transition: transform 0.7s ease, filter 0.5s ease; }
-        .www-card:hover .card-img-wrap img { transform: scale(1.08); filter: brightness(0.45); }
+        /* --- DEKORACYJNE KÓŁKA (TYLKO DESKTOP) --- */
+        .deco {
+            display: none;
+            position: absolute;
+            border-radius: 50%;
+            background: #0052FF;
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .deco-ring {
+            background: transparent;
+            border: 3px solid #0052FF;
+            opacity: 0.18;
+        }
+        @media (min-width: 1024px) {
+            .deco { display: block; animation: deco-float 9s ease-in-out infinite; }
+            .deco.d2 { animation-duration: 12s; animation-delay: -3s; }
+            .deco.d3 { animation-duration: 7s; animation-delay: -5s; animation-direction: reverse; }
+        }
+        @keyframes deco-float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(10px, -16px) scale(1.04); }
+            66% { transform: translate(-8px, 10px) scale(0.97); }
+        }
 
-        .www-section-bg {
-            position: absolute; inset: 0; z-index: 0; pointer-events: none;
-            display: flex; align-items: flex-end; justify-content: center;
-            padding: 0 1rem; overflow: hidden;
-        }
-        @media (min-width: 1024px) { .www-section-bg { padding: 0 3rem; } }
-        .www-section-tray { width: 100%; max-width: 1280px; height: 100%; display: flex; align-items: flex-end; gap: 1rem; padding-bottom: 2rem; }
-        .www-section-thumb {
-            flex: 1; height: 0%; border-radius: 16px 16px 0 0; overflow: hidden;
-            transition: height 0.65s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
-            -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
-            mask-image: linear-gradient(to top, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
-        }
-        .www-section-thumb:nth-child(2) { transition-delay: 0.07s; }
-        .www-section-thumb:nth-child(3) { transition-delay: 0.14s; }
-        .www-section-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0.6; }
-        #portfolio.www-bg-active .www-section-thumb { height: 85%; }
-
-        .branding-card { position: relative; overflow: hidden; }
-        .branding-card .branding-img-wrap img { transition: transform 0.7s ease, filter 0.5s ease; }
-        .branding-card:hover .branding-img-wrap img { transform: scale(1.08); filter: brightness(0.45); }
-
-        .branding-section-bg {
-            position: absolute; inset: 0; z-index: 0; pointer-events: none;
-            display: flex; align-items: flex-end; justify-content: center;
-            padding: 0 1rem; overflow: hidden;
-        }
-        @media (min-width: 1024px) { .branding-section-bg { padding: 0 3rem; } }
-        .branding-section-tray { width: 100%; max-width: 1280px; height: 100%; display: flex; align-items: flex-end; gap: 1rem; padding-bottom: 2rem; }
-        .branding-section-thumb {
-            flex: 1; height: 0%; border-radius: 16px 16px 0 0; overflow: hidden;
-            transition: height 0.65s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
-            -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
-            mask-image: linear-gradient(to top, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
-        }
-        .branding-section-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0.6; }
-        #portfolio.branding-bg-active .branding-section-thumb { height: 85%; }
+        /* --- KAFELKI PORTFOLIO (BEZ ZDJĘĆ, JEDEN POD DRUGIM) --- */
+        .portfolio-row { transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
+        .portfolio-row:hover { transform: translateY(-3px); border-color: #0052FF; }
+        .portfolio-row .row-arrow { transition: transform 0.3s ease; }
+        .portfolio-row:hover .row-arrow { transform: translateX(4px); }
     </style>
 </head>
 <body class="font-sans text-gray-700 antialiased bg-white">
@@ -308,7 +298,13 @@
         </section>
 
         <section id="about" class="snap-section bg-light">
-            <div class="rigid-container grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <!-- Dekoracyjne kółka (tylko desktop) -->
+            <span class="deco" style="width:180px;height:180px;left:-70px;top:14%;"></span>
+            <span class="deco d2" style="width:60px;height:60px;left:5%;top:70%;"></span>
+            <span class="deco deco-ring d3" style="width:110px;height:110px;right:-40px;top:18%;"></span>
+            <span class="deco d3" style="width:34px;height:34px;right:6%;bottom:16%;"></span>
+
+            <div class="rigid-container relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
                 <div class="anim-left relative hidden lg:flex justify-center px-4 lg:px-0">
                     <div class="absolute inset-0 bg-brandBlue rounded-[32px] lg:rounded-[40px] transform -translate-x-3 translate-y-3 lg:-translate-x-4 lg:translate-y-4 -z-10 opacity-20"></div>
                     <img src="https://images.unsplash.com/photo-1542744094-24638eff58bb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Krzysztof Paczkowski - O mnie" class="w-full max-w-sm lg:max-w-md rounded-[32px] lg:rounded-[40px] object-cover h-[350px] lg:h-[500px] shadow-lg">
@@ -334,6 +330,12 @@
         </section>
 
         <section id="skills" class="snap-section bg-white relative">
+            <!-- Dekoracyjne kółka (tylko desktop) -->
+            <span class="deco d2" style="width:140px;height:140px;right:-50px;top:12%;"></span>
+            <span class="deco deco-ring" style="width:90px;height:90px;left:3%;top:20%;"></span>
+            <span class="deco d3" style="width:48px;height:48px;left:7%;bottom:14%;"></span>
+            <span class="deco" style="width:26px;height:26px;right:5%;bottom:20%;"></span>
+
             <div id="easter-egg" class="easter-egg-container">
                 <img src="https://ui-avatars.com/api/?name=Krzysztof&background=0052FF&color=fff&size=150" alt="Krzysztof" class="easter-egg-image">
             </div>
@@ -358,47 +360,56 @@
                         Biegle posługuję się branżowym oprogramowaniem do tworzenia grafiki wektorowej, rastrowej, obróbki wideo oraz wykorzystuję w pracy generatywną sztuczną inteligencję.
                     </p>
                 </div>
-                <div class="anim-right flex flex-col gap-4 lg:gap-6 w-full">
+                <div class="anim-right flex flex-col gap-3 lg:gap-5 w-full">
                     <div>
-                        <div class="flex justify-between mb-1"><span class="text-xs lg:text-sm font-semibold text-brandNavy">Adobe Photoshop & Illustrator</span><span class="text-xs lg:text-sm font-bold text-brandBlue">90%</span></div>
+                        <div class="flex justify-between mb-1"><span class="text-xs lg:text-sm font-semibold text-brandNavy">Adobe Photoshop & Illustrator</span><span class="text-xs lg:text-sm font-bold text-brandBlue">80%</span></div>
                         <div class="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
-                            <div class="skill-bar bg-brandBlue h-full rounded-full transition-all duration-1000 ease-out w-0" data-width="90%"></div>
+                            <div class="skill-bar bg-brandBlue h-full rounded-full transition-all duration-1000 ease-out w-0" data-width="80%"></div>
                         </div>
                     </div>
                     <div>
-                        <div class="flex justify-between mb-1"><span class="text-xs lg:text-sm font-semibold text-brandNavy">InDesign & Corel Draw (DTP)</span><span class="text-xs lg:text-sm font-bold text-brandBlue">80%</span></div>
+                        <div class="flex justify-between mb-1"><span class="text-xs lg:text-sm font-semibold text-brandNavy">InDesign & Corel Draw (DTP, wektory)</span><span class="text-xs lg:text-sm font-bold text-brandBlue">50%</span></div>
                         <div class="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
-                            <div class="skill-bar bg-brandBlue h-full rounded-full transition-all duration-1000 ease-out delay-100 w-0" data-width="80%"></div>
+                            <div class="skill-bar bg-brandBlue h-full rounded-full transition-all duration-1000 ease-out delay-100 w-0" data-width="50%"></div>
                         </div>
                     </div>
                     <div>
-                        <div class="flex justify-between mb-1"><span class="text-xs lg:text-sm font-semibold text-brandNavy">Narzędzia AI (Gemini, ChatGPT, Claude)</span><span class="text-xs lg:text-sm font-bold text-brandBlue">95%</span></div>
+                        <div class="flex justify-between mb-1"><span class="text-xs lg:text-sm font-semibold text-brandNavy">Narzędzia AI (Gemini, ChatGPT, Claude)</span><span class="text-xs lg:text-sm font-bold text-brandBlue">70%</span></div>
                         <div class="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
-                            <div class="skill-bar bg-brandBlue h-full rounded-full transition-all duration-1000 ease-out delay-200 w-0" data-width="95%"></div>
+                            <div class="skill-bar bg-brandBlue h-full rounded-full transition-all duration-1000 ease-out delay-200 w-0" data-width="70%"></div>
                         </div>
                     </div>
                     <div>
-                        <div class="flex justify-between mb-1"><span class="text-xs lg:text-sm font-semibold text-brandNavy">E-commerce & Social Media</span><span class="text-xs lg:text-sm font-bold text-brandBlue">85%</span></div>
+                        <div class="flex justify-between mb-1"><span class="text-xs lg:text-sm font-semibold text-brandNavy">E-commerce & Social Media</span><span class="text-xs lg:text-sm font-bold text-brandBlue">70%</span></div>
                         <div class="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
-                            <div class="skill-bar bg-brandBlue h-full rounded-full transition-all duration-1000 ease-out delay-300 w-0" data-width="85%"></div>
+                            <div class="skill-bar bg-brandBlue h-full rounded-full transition-all duration-1000 ease-out delay-300 w-0" data-width="70%"></div>
                         </div>
                     </div>
                     <div>
-                        <div class="flex justify-between mb-1"><span class="text-xs lg:text-sm font-semibold text-brandNavy">After Effects & Premiere (Wideo)</span><span class="text-xs lg:text-sm font-bold text-brandBlue">70%</span></div>
+                        <div class="flex justify-between mb-1"><span class="text-xs lg:text-sm font-semibold text-brandNavy">After Effects & Premiere (Wideo)</span><span class="text-xs lg:text-sm font-bold text-brandBlue">50%</span></div>
                         <div class="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
-                            <div class="skill-bar bg-brandBlue h-full rounded-full transition-all duration-1000 ease-out delay-400 w-0" data-width="70%"></div>
+                            <div class="skill-bar bg-brandBlue h-full rounded-full transition-all duration-1000 ease-out delay-400 w-0" data-width="50%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1"><span class="text-xs lg:text-sm font-semibold text-brandNavy">Canva</span><span class="text-xs lg:text-sm font-bold text-brandBlue">50%</span></div>
+                        <div class="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
+                            <div class="skill-bar bg-brandBlue h-full rounded-full transition-all duration-1000 ease-out delay-500 w-0" data-width="50%"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="portfolio" class="snap-section bg-brandLight relative">
-            <div class="branding-section-bg"><div class="branding-section-tray"><div class="branding-section-thumb"><img src="img/KZ.jpg" alt="Projekt Branding"></div></div></div>
-            <div class="www-section-bg"><div class="www-section-tray"><div class="www-section-thumb"><img src="img/MG.jpg" alt="Projekt 1"></div><div class="www-section-thumb"><img src="img/grizzlies.jpg" alt="Projekt 2"></div><div class="www-section-thumb"><img src="img/ms1.webp" alt="Projekt 3"></div></div></div>
+        <section id="portfolio" class="snap-section bg-white relative">
+            <!-- Dekoracyjne kółka (tylko desktop) -->
+            <span class="deco" style="width:160px;height:160px;left:-60px;top:20%;"></span>
+            <span class="deco deco-ring d2" style="width:70px;height:70px;left:6%;bottom:15%;"></span>
+            <span class="deco d2" style="width:120px;height:120px;right:-45px;bottom:18%;"></span>
+            <span class="deco d3" style="width:38px;height:38px;right:7%;top:16%;"></span>
 
-            <div class="rigid-container flex flex-col justify-center w-full relative z-10 px-2 lg:px-6">
-                <div class="text-center mb-6 lg:mb-10 anim-bottom">
+            <div class="rigid-container flex flex-col justify-center w-full relative z-10 px-4 lg:px-6">
+                <div class="text-center mb-5 lg:mb-8 anim-bottom">
                     <h4 class="text-brandBlue font-bold tracking-wider text-[10px] lg:text-sm mb-2 uppercase justify-center flex items-center gap-2">
                         <i class="fa-solid fa-palette"></i> Portfolio
                     </h4>
@@ -407,45 +418,47 @@
                     </h2>
                 </div>
 
-                <div class="relative w-full anim-bottom delay-1">
-                    <button id="prev-btn" aria-label="Poprzedni projekt" class="absolute left-1 md:-left-4 lg:-left-6 top-1/2 -translate-y-1/2 z-20 w-8 h-8 lg:w-12 lg:h-12 bg-white shadow-lg rounded-full text-brandBlue flex items-center justify-center opacity-90 hover:opacity-100 hover:scale-105 transition-all">
-                        <i class="fa-solid fa-chevron-left text-xs lg:text-lg"></i>
-                    </button>
-                    <button id="next-btn" aria-label="Następny projekt" class="absolute right-1 md:-right-4 lg:-right-6 top-1/2 -translate-y-1/2 z-20 w-8 h-8 lg:w-12 lg:h-12 bg-white shadow-lg rounded-full text-brandBlue flex items-center justify-center opacity-90 hover:opacity-100 hover:scale-105 transition-all">
-                        <i class="fa-solid fa-chevron-right text-xs lg:text-lg"></i>
-                    </button>
-
-                    <div id="portfolio-scroll" class="portfolio-carousel flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 lg:pb-8 hide-scrollbar scroll-smooth relative z-10 px-10 md:px-0">
-                        <a href="https://www.behance.net/krzysztofped07" target="_blank" class="portfolio-card branding-card snap-center bg-white rounded-3xl p-3 shadow-soft transition-all duration-300 block group shrink-0 relative" tabindex="0">
-                            <div class="branding-img-wrap overflow-hidden rounded-2xl mb-4 h-52 relative"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Branding" class="branding-bg-img w-full h-full object-cover"><div class="branding-overlay absolute inset-0 bg-brandNavy/0 transition-all duration-500"></div></div>
-                            <div class="px-2 pb-1 relative z-10"><p class="text-brandBlue text-xs font-bold uppercase tracking-wider mb-1">Identyfikacja Wizualna</p><h3 class="text-base font-bold text-brandNavy">Branding i Key Visual <span class="branding-arrow text-brandBlue opacity-0 transition-opacity duration-300">→</span></h3></div>
-                        </a>
-                        <a href="https://www.behance.net/krzysztofped07" target="_blank" class="portfolio-card snap-center bg-white rounded-3xl p-3 shadow-soft transition-all duration-300 block group shrink-0">
-                            <div class="overflow-hidden rounded-2xl mb-4 h-52 portfolio-img-wrap"><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="E-commerce" class="w-full h-full object-cover portfolio-img"></div>
-                            <div class="px-2 pb-1"><p class="text-brandBlue text-xs font-bold uppercase tracking-wider mb-1">E-commerce i www</p><h3 class="text-base font-bold text-brandNavy">Grafiki i Kampanie Social Media</h3></div>
-                        </a>
-                        <a href="https://www.behance.net/krzysztofped07" target="_blank" class="portfolio-card snap-center bg-white rounded-3xl p-3 shadow-soft transition-all duration-300 block group shrink-0">
-                            <div class="overflow-hidden rounded-2xl mb-4 h-52 portfolio-img-wrap"><img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="DTP" class="w-full h-full object-cover portfolio-img"></div>
-                            <div class="px-2 pb-1"><p class="text-brandBlue text-xs font-bold uppercase tracking-wider mb-1">Materiały do druku</p><h3 class="text-base font-bold text-brandNavy">Projekty Druk DTP</h3></div>
-                        </a>
-                        <div class="portfolio-card www-card snap-center bg-brandNavy rounded-3xl p-3 shadow-soft transition-all duration-300 block shrink-0 relative cursor-pointer" tabindex="0">
-                            <div class="www-img-wrap overflow-hidden rounded-2xl mb-4 h-52 relative"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Strony WWW i AI" class="www-bg-img w-full h-full object-cover"><div class="www-overlay absolute inset-0 bg-brandNavy/0 transition-all duration-500"></div></div>
-                            <div class="px-2 pb-1"><p class="text-brandBlue text-xs font-bold uppercase tracking-wider mb-1">Wykorzystanie Sztucznej Inteligencji</p><h3 class="text-base font-bold text-white">Strony www i Newslettery z AI <span class="www-arrow text-brandBlue opacity-0 transition-opacity duration-300">→</span></h3></div>
+                <div class="w-full max-w-3xl mx-auto flex flex-col gap-3 lg:gap-4 anim-bottom delay-1">
+                    <a href="https://www.behance.net/krzysztofped07" target="_blank" class="portfolio-row bg-white rounded-2xl lg:rounded-3xl p-4 lg:p-6 shadow-soft border border-gray-100 flex items-center justify-between gap-4 group">
+                        <div>
+                            <p class="text-brandBlue text-[10px] lg:text-xs font-bold uppercase tracking-wider mb-1">Identyfikacja Wizualna</p>
+                            <h3 class="text-sm lg:text-lg font-bold text-brandNavy">Branding i Key Visual</h3>
                         </div>
+                        <span class="row-arrow text-brandBlue text-lg lg:text-xl shrink-0">→</span>
+                    </a>
+                    <a href="https://www.behance.net/krzysztofped07" target="_blank" class="portfolio-row bg-white rounded-2xl lg:rounded-3xl p-4 lg:p-6 shadow-soft border border-gray-100 flex items-center justify-between gap-4 group">
+                        <div>
+                            <p class="text-brandBlue text-[10px] lg:text-xs font-bold uppercase tracking-wider mb-1">E-commerce i www</p>
+                            <h3 class="text-sm lg:text-lg font-bold text-brandNavy">Grafiki i Kampanie Social Media</h3>
+                        </div>
+                        <span class="row-arrow text-brandBlue text-lg lg:text-xl shrink-0">→</span>
+                    </a>
+                    <a href="https://www.behance.net/krzysztofped07" target="_blank" class="portfolio-row bg-white rounded-2xl lg:rounded-3xl p-4 lg:p-6 shadow-soft border border-gray-100 flex items-center justify-between gap-4 group">
+                        <div>
+                            <p class="text-brandBlue text-[10px] lg:text-xs font-bold uppercase tracking-wider mb-1">Materiały do druku</p>
+                            <h3 class="text-sm lg:text-lg font-bold text-brandNavy">Projekty Druk DTP</h3>
+                        </div>
+                        <span class="row-arrow text-brandBlue text-lg lg:text-xl shrink-0">→</span>
+                    </a>
+                    <div class="portfolio-row bg-brandNavy rounded-2xl lg:rounded-3xl p-4 lg:p-6 shadow-soft border border-brandNavy flex items-center justify-between gap-4 group">
+                        <div>
+                            <p class="text-brandBlue text-[10px] lg:text-xs font-bold uppercase tracking-wider mb-1">Wykorzystanie Sztucznej Inteligencji</p>
+                            <h3 class="text-sm lg:text-lg font-bold text-white">Strony www i Newslettery z AI</h3>
+                        </div>
+                        <span class="row-arrow text-brandBlue text-lg lg:text-xl shrink-0">→</span>
                     </div>
-                </div>
-
-                <div class="flex justify-center items-center gap-2 mt-2" id="portfolio-dots">
-                    <button class="portfolio-dot w-2.5 h-2.5 rounded-full bg-brandBlue transition-all" data-index="0"></button>
-                    <button class="portfolio-dot w-2 h-2 rounded-full bg-gray-300 hover:bg-brandBlue/50 transition-all" data-index="1"></button>
-                    <button class="portfolio-dot w-2 h-2 rounded-full bg-gray-300 hover:bg-brandBlue/50 transition-all" data-index="2"></button>
-                    <button class="portfolio-dot w-2 h-2 rounded-full bg-gray-300 hover:bg-brandBlue/50 transition-all" data-index="3"></button>
                 </div>
             </div>
         </section>
 
         <section id="services" class="snap-section bg-white">
-            <div class="rigid-container flex flex-col justify-center h-full w-full">
+            <!-- Dekoracyjne kółka (tylko desktop) -->
+            <span class="deco d3" style="width:150px;height:150px;left:-55px;bottom:14%;"></span>
+            <span class="deco deco-ring" style="width:80px;height:80px;left:5%;top:14%;"></span>
+            <span class="deco d2" style="width:100px;height:100px;right:-35px;top:16%;"></span>
+            <span class="deco" style="width:30px;height:30px;right:6%;bottom:18%;"></span>
+
+            <div class="rigid-container relative z-10 flex flex-col justify-center h-full w-full">
                 <div class="text-center mb-4 lg:mb-12 anim-bottom">
                     <h4 class="text-brandBlue font-bold tracking-wider text-[10px] lg:text-sm mb-1 lg:mb-3 uppercase justify-center flex items-center gap-2">
                         <i class="fa-solid fa-briefcase"></i> Oferta
@@ -488,7 +501,13 @@
         </section>
 
         <section id="experience" class="snap-section bg-light">
-            <div class="rigid-container h-full flex flex-col justify-center">
+            <!-- Dekoracyjne kółka (tylko desktop) -->
+            <span class="deco" style="width:130px;height:130px;left:-50px;top:16%;"></span>
+            <span class="deco d2" style="width:44px;height:44px;left:4%;bottom:12%;"></span>
+            <span class="deco deco-ring d3" style="width:100px;height:100px;right:-35px;bottom:16%;"></span>
+            <span class="deco d2" style="width:56px;height:56px;right:5%;top:14%;"></span>
+
+            <div class="rigid-container relative z-10 h-full flex flex-col justify-center">
                 <div class="text-center mb-4 shrink-0 anim-bottom">
                     <h4 class="text-brandBlue font-bold tracking-wider text-[10px] lg:text-sm mb-1 uppercase justify-center flex items-center gap-2">
                         <i class="fa-solid fa-graduation-cap"></i> CV
@@ -788,68 +807,6 @@
                 init();
                 animate();
                 canvas.parentElement.style.filter = "url('#gooey-filter')";
-            }
-
-            // --- PORTFOLIO NAWIGACJA (STRZAŁKI I KROPKI) ---
-            const scrollContainer = document.getElementById('portfolio-scroll');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const dots = document.querySelectorAll('.portfolio-dot');
-
-            if (scrollContainer && prevBtn && nextBtn) {
-                const scrollAmount = window.innerWidth * 0.7; 
-
-                prevBtn.addEventListener('click', () => {
-                    scrollContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-                });
-
-                nextBtn.addEventListener('click', () => {
-                    scrollContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-                });
-
-                scrollContainer.addEventListener('scroll', () => {
-                    const scrollLeft = scrollContainer.scrollLeft;
-                    const cardWidth = scrollContainer.scrollWidth / scrollContainer.children.length;
-                    
-                    let index = Math.round(scrollLeft / cardWidth);
-                    if(index > dots.length - 1) index = dots.length - 1;
-
-                    dots.forEach((dot, i) => {
-                        if (i === index) {
-                            dot.classList.remove('bg-gray-300', 'w-2', 'h-2');
-                            dot.classList.add('bg-brandBlue', 'w-2.5', 'h-2.5');
-                        } else {
-                            dot.classList.remove('bg-brandBlue', 'w-2.5', 'h-2.5');
-                            dot.classList.add('bg-gray-300', 'w-2', 'h-2');
-                        }
-                    });
-                });
-
-                dots.forEach((dot) => {
-                    dot.addEventListener('click', (e) => {
-                        const i = parseInt(e.target.getAttribute('data-index'));
-                        const cardWidth = scrollContainer.scrollWidth / scrollContainer.children.length;
-                        scrollContainer.scrollTo({ left: cardWidth * i, behavior: 'smooth' });
-                    });
-                });
-            }
-
-            // --- HOVERY KAFELKÓW WWW I BRANDING ---
-            const wwwCard = document.querySelector('.www-card');
-            const brandingCard = document.querySelector('.branding-card');
-            const portfolioSection = document.getElementById('portfolio');
-            
-            if (wwwCard && portfolioSection) {
-                function wwwActivate() { wwwCard.classList.add('www-active'); portfolioSection.classList.add('www-bg-active'); }
-                function wwwDeactivate() { wwwCard.classList.remove('www-active'); portfolioSection.classList.remove('www-bg-active'); }
-                wwwCard.addEventListener('mouseenter', wwwActivate);
-                wwwCard.addEventListener('mouseleave', wwwDeactivate);
-            }
-            if (brandingCard && portfolioSection) {
-                function brandingActivate() { brandingCard.classList.add('branding-active'); portfolioSection.classList.add('branding-bg-active'); }
-                function brandingDeactivate() { brandingCard.classList.remove('branding-active'); portfolioSection.classList.remove('branding-bg-active'); }
-                brandingCard.addEventListener('mouseenter', brandingActivate);
-                brandingCard.addEventListener('mouseleave', brandingDeactivate);
             }
         });
     </script>
